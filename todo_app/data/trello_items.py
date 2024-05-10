@@ -3,15 +3,10 @@ import requests
 import os
 import json
 
-trello_api_key = os.getenv('TRELLO_API_KEY')
-trello_api_token = os.getenv('TRELLO_API_TOKEN')
-trello_board_id = os.getenv('TRELLO_BOARD_ID')
-trello_to_do_list_id = os.getenv('TRELLO_TO_DO_LIST_ID')
-
 class Item:
-   def __init__(self, id, name, list):
+   def __init__(self, id, title, list):
       self.id = id
-      self.name = name
+      self.title = title
       self.list = list
 
 class List:
@@ -22,7 +17,7 @@ class List:
 
 def get_items():
   request_url = 'https://api.trello.com/1/boards/{id}/lists?key={key}&token={token}&cards=open&card_fields=id,name'
-  response = requests.get(request_url.format(id=trello_board_id, key=trello_api_key, token=trello_api_token))
+  response = requests.get(request_url.format(id=os.getenv('TRELLO_BOARD_ID'), key=os.getenv('TRELLO_API_KEY'), token=os.getenv('TRELLO_API_TOKEN')))
   
   json_response = json.loads(response.text)
 
@@ -39,7 +34,7 @@ def get_items():
 
 def get_item(id):
   request_url = 'https://api.trello.com/1/cards/{id}?key={key}&token={token}'
-  response = requests.get(request_url.format(id=id, key=trello_api_key, token=trello_api_token))
+  response = requests.get(request_url.format(id=id, key=os.getenv('TRELLO_API_KEY'), token=os.getenv('TRELLO_API_TOKEN')))
   
   json_response = json.loads(response.text)
 
@@ -47,12 +42,12 @@ def get_item(id):
   
   return item
 
-def add_item(name):
+def add_item(title):
   request_url = 'https://api.trello.com/1/cards?idList={id}&key={key}&token={token}&name={name}'
-  requests.post(request_url.format(id=trello_to_do_list_id, key=trello_api_key, token=trello_api_token, name=name))
+  requests.post(request_url.format(id=os.getenv('TRELLO_TO_DO_LIST_ID'), key=os.getenv('TRELLO_API_KEY'), token=os.getenv('TRELLO_API_TOKEN'), name=title))
   return
 
 def save_item(item_id, list_id):
     request_url = 'https://api.trello.com/1/cards/{id}?key={key}&token={token}&idList={list_id}'
-    requests.put(request_url.format(id = item_id, key=trello_api_key, token=trello_api_token, list_id = list_id))
+    requests.put(request_url.format(id = item_id, key=os.getenv('TRELLO_API_KEY'), token=os.getenv('TRELLO_API_TOKEN'), list_id = list_id))
     return

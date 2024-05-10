@@ -14,8 +14,8 @@ def index_get():
 
 @app.route('/new')
 def new_post():
-    name = request.values.get("name", "")
-    trello_items.add_item(name)
+    title = request.values.get("title", "")
+    trello_items.add_item(title)
     return redirect(url_for("index_get"))
 
 @app.route('/update')
