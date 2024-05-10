@@ -8,19 +8,39 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        {% for item in items %}
-          <li>{{item.title}}</li>
+    {% for list in lists %}
+    <div class="container">
+      <h2>{{list.name}}</h2>
+      <ul class="row">
+        {% for item in list.items %}
+        <div class="col-md-auto">
+          <div class="row-sm">
+            {{item.name}}
+          </div>
+            <form action="/update" method="put">
+              <div class="row-sm">
+              <label for="list">Status </label>
+                <select name="list_id">
+                  {% for list_option in lists %}
+                    <option {{ "selected" if list_option == list }} value="{{list_option.id}}">{{list_option.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <input type="hidden" name="item_id" value="{{ item.id }}"/>
+                <button class="row-sm" type="submit" value="Submit">
+                  Update item
+                </button>
+            </form>
+        </div>
         {% endfor %}
       </ul>
     </div>
+    {% endfor %}
     <div class="col-md-12">
-      <h2>Add a new to do item</h2>
+      <h2>Add a new To Do item</h2>
       <form action="/new" method="put">
-        <label for="title">New to do: </label>
-        <input type="text" name="title" id="title" required />
+        <label for="name">New to do: </label>
+        <input type="text" name="name" id="name" required />
         <input type="submit" value="Add new to do" />
       </form>
     </div>
