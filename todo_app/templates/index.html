@@ -8,7 +8,7 @@
   </div>
 
   <div class="row">
-    {% for list in lists %}
+    {% for list in view_model.lists %}
     <div class="container">
       <h2>{{list.name}}</h2>
       <ul class="row">
@@ -21,7 +21,7 @@
               <div class="row-sm">
               <label for="list">Status </label>
                 <select name="list_id">
-                  {% for list_option in lists %}
+                  {% for list_option in view_model.lists %}
                     <option {{ "selected" if list_option == list }} value="{{list_option.id}}">{{list_option.name}}</option>
                   {% endfor %}
                 </select>

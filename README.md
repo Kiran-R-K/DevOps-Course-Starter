@@ -51,6 +51,13 @@ Once the all dependencies have been installed, start the Flask app in developmen
 $ poetry run flask run
 ```
 
+## Testing the App
+
+You can run the tests by running:
+```bash
+$ poetry run pytest
+``` 
+
 You should see output similar to the following:
 ```bash
  * Serving Flask app 'todo_app/app'
