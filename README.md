@@ -51,13 +51,6 @@ Once the all dependencies have been installed, start the Flask app in developmen
 $ poetry run flask run
 ```
 
-## Testing the App
-
-You can run the tests by running:
-```bash
-$ poetry run pytest
-``` 
-
 You should see output similar to the following:
 ```bash
  * Serving Flask app 'todo_app/app'
@@ -70,3 +63,15 @@ Press CTRL+C to quit
  * Debugger PIN: 113-666-066
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Testing the App
+
+Tests are run using pytest, you can install it by running:
+```bash
+$ poetry install pytest
+``` 
+
+You can run the tests by running:
+```bash
+$ poetry run pytest
+``` 
