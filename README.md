@@ -66,9 +66,9 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ## Testing the App
 
-Tests are run using pytest, you can install it by running:
+Tests are run using pytest, this will have been installed when you ran `poetry install`. It was installed using:
 ```bash
-$ poetry install pytest
+$ poetry add pytest
 ``` 
 
 You can run the tests by running:

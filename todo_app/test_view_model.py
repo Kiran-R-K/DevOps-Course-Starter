@@ -20,28 +20,28 @@ def test_view_model_done_items():
   list_name = "Done"
   test_lists = get_test_lists(list_name)
   view_model = ViewModel(test_lists)
-  done_items = view_model.done_items
+  done_items_list = view_model.done_items_list
 
-  assert len(done_items) == 1
-  assert done_items[0].name == list_name
-  assert len(done_items[0].items)
+  assert len(done_items_list) == 1
+  assert done_items_list[0].name == list_name
+  assert len(done_items_list[0].items)
 
 def test_view_model_doing_items():
   list_name = "Doing"
   test_lists = get_test_lists(list_name)
   view_model = ViewModel(test_lists)
-  doing_items = view_model.doing_items
+  doing_items_list = view_model.doing_items_list
 
-  assert len(doing_items) == 1
-  assert doing_items[0].name == list_name
-  assert len(doing_items[0].items)
+  assert len(doing_items_list) == 1
+  assert doing_items_list[0].name == list_name
+  assert len(doing_items_list[0].items)
 
 def test_view_model_to_do_items():
   list_name = "To do"
   test_lists = get_test_lists(list_name)
   view_model = ViewModel(test_lists)
-  to_do_items = view_model.to_do_items
+  to_do_items_list = view_model.to_do_items_list
 
-  assert len(to_do_items) == 1
-  assert to_do_items[0].name == list_name
-  assert len(to_do_items[0].items)
+  assert len(to_do_items_list) == 1
+  assert to_do_items_list[0].name == list_name
+  assert len(to_do_items_list[0].items)

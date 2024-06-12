@@ -7,17 +7,13 @@ class ViewModel:
     return self._lists
   
   @property
-  def items(self):
-    return self._lists
-  
-  @property
-  def done_items(self):
+  def done_items_list(self):
     return [x for x in self._lists if x.name == 'Done']
 
   @property
-  def doing_items(self):
+  def doing_items_list(self):
     return [x for x in self._lists if x.name == 'Doing']
   
   @property
-  def to_do_items(self):
+  def to_do_items_list(self):
     return [x for x in self._lists if x.name == 'To do']
