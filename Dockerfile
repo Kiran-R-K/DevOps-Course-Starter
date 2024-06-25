@@ -5,11 +5,13 @@ RUN apt-get install -y curl
 
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-WORKDIR /todo_app
-COPY ./todo_app ./todo_app
+ENV PATH=$PATH:/root/.local/bin/
+
+COPY . /app
+WORKDIR /app
 
 RUN poetry install
 
-RUN poetry install pytest
+ENTRYPOINT  poetry run flask run
 
-RUN poetry run flask run
+EXPOSE 5000
