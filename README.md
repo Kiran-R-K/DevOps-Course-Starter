@@ -78,7 +78,9 @@ $ poetry run pytest
 
 ## Deploying the App to a Virtual Machine
 
-To deploy the app using virtual machines - you will need a control node VM and a host VM (or multiple hot VMs).
+Note: the deployment files will not be kept up to date - so they will need to be updated before deployment
+
+To deploy the app using virtual machines - you will need a control node VM and a host VM (or multiple host VMs).
 
 Install ansible on the control node, copy the files in the ansible folder into the control node VM.
 Add the IP address(es) of your host node(s) to the `inventory.yaml` file
@@ -86,6 +88,6 @@ Open a terminal in the control node and run:
 ```bash
 $ ansible-playbook playbook.yml -i inventory.yml
 ```
-You will need to have the `TRELLO_API_KEY` and `TRELLO_API_TOKEN` available, and input htem when prompted.
+You will need to have the `TRELLO_API_KEY` and `TRELLO_API_TOKEN` available, and input them when prompted.
 
 The todoapp should then be running at `{host_ip}:5000`

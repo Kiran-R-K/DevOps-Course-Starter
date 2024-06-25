@@ -12,16 +12,12 @@
       private: yes
 
   tasks:
-  - name: Install the latest version of git
+  - name: Install the latest versions of git & python
     become: yes
     yum:
-      name: git
-      state: latest
-
-  - name: Install the latest version of python
-    become: yes
-    yum:
-      name: python3
+      name:
+        - git
+        - python3
       state: latest
 
   - name: Install poetry
@@ -29,15 +25,12 @@
     args:
       creates: /home/ec2-user/.local/bin/poetry
 
-  - name: Create directory for the app
+  - name: Create a directory for the app
     become: yes
-    shell: mkdir /opt/todoapp
-    args:
-      creates: /opt/todoapp
-
-  - name: Make ec2-user owner of app directory
-    become: yes
-    shell: chown ec2-user /opt/todoapp
+    file:
+      path: /opt/todoapp
+      state: directory
+      owner: ec2-user
 
   - name: Git checkout
     become: yes
