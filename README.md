@@ -44,7 +44,7 @@ This app uses Trello to connect using the Trello API you will need to get  an ac
 
 Once you have these save a copy of `.env.template` as `.env` in the project root folder with your API token, API key and Board ID. Make sure this file is in the `.gitignore` file so that the details aren't saved to git.
 
-## Running the App
+## Running the App with poetry
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
 ```bash
@@ -63,6 +63,36 @@ Press CTRL+C to quit
  * Debugger PIN: 113-666-066
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Building and Running the App with Docker
+
+Make sure you have docker installed
+
+### Development
+
+To build the container run:
+```bash
+$ docker build --tag todo-app:dev --target development .
+```
+
+To run the container run:
+```bash
+$ docker run --publish 5000:5000 --env-file .env --mount "type=bind,source=$(pwd)/todo_app,target=/app/todo_app" todo-app:dev
+```
+
+Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app. The container will have hot reloading
+
+### Production
+
+To build the container run:
+```bash
+$ docker build --tag todo-app:prod --target production .
+```
+
+To run the container run:
+```bash
+$ docker run --publish 5000:5000 --env-file .env todo-app:prod
+```
 
 ## Testing the App
 
