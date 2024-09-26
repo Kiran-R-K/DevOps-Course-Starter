@@ -21,6 +21,7 @@ jobs:
 
       - name: Run tests
         run: docker run todo-app:test
+
   container_build_and_push:
     name: Container build and push
     needs: build_and_test
@@ -43,4 +44,11 @@ jobs:
           target: production
           tags: krkukar/todo-app:prod
 
-
+  deploy:
+    name: Deploy
+    needs: container_build_and_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger latest image pull
+        run: curl -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
+        
