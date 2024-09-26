@@ -10,7 +10,7 @@ on:
       - 'ansible/**'
 
 jobs:
-  build:
+  build_and_test:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
@@ -21,3 +21,14 @@ jobs:
 
       - name: Run tests
         run: docker run todo-app:test
+  container_build_and_push:
+    name: Container build and push
+    needs: build_and_test
+    if: github.event_name == 'push' && endsWith(github.ref, 'module9') 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run echo statement
+        run: echo Publishing!
+
