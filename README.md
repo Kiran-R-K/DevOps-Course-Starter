@@ -127,11 +127,11 @@ $ docker run --env-file .env todo-app:test
 
 The production image that is deployed to Azure can be found here [https://hub.docker.com/repository/docker/krkukar/todo-app/general](https://hub.docker.com/repository/docker/krkukar/todo-app/general)
 
-You website url is [https://kirktodo.azurewebsites.net/](https://kirktodo.azurewebsites.net/)
+The website url is [https://kirktodo.azurewebsites.net/](https://kirktodo.azurewebsites.net/)
 
 ### Updating the app
 
-this will require credentials for Docker and Azure
+This will require credentials for Docker and Azure
 
 To push updates to the website please follow these steps:
 
