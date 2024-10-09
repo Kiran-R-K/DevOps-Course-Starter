@@ -123,6 +123,30 @@ To run the container run:
 $ docker run --env-file .env todo-app:test
 ```
 
+## Deployment with DockerHub and Azure
+
+The production image that is deployed to Azure can be found here [https://hub.docker.com/repository/docker/krkukar/todo-app/general](https://hub.docker.com/repository/docker/krkukar/todo-app/general)
+
+You website url is [https://kirktodo.azurewebsites.net/](https://kirktodo.azurewebsites.net/)
+
+### Updating the app
+
+this will require credentials for Docker and Azure
+
+To push updates to the website please follow these steps:
+
+Once updates have been made save them and rebuild the container:
+```bash
+$ docker build --tag krkukar/todo-app:prod --target production .
+```
+
+Push the updated container to Docker Hub:
+```bash
+$ docker push krkukar/todo-app:prod
+```
+
+To promt Azure to re-pull the docker image go to the `Deployment Center` on for the Web App on Azure and get the `Webhook URL` then make a `POST` request to that URL.
+
 ## Deploying the App to a Virtual Machine
 
 Note: the deployment files will not be kept up to date - so they will need to be updated before deployment
