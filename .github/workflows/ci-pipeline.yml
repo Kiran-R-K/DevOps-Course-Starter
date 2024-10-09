@@ -25,7 +25,7 @@ jobs:
   container_build_and_push:
     name: Container build and push
     needs: build_and_test
-    if: github.event_name == 'push' && endsWith(github.ref, 'module9')
+    if: github.event_name == 'push' && endsWith(github.ref, 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -50,5 +50,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger latest image pull
-        run: curl -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
+        run: curl -dH --fail -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
         
