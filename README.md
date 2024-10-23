@@ -9,12 +9,6 @@ The project uses poetry for Python to create an isolated environment and manage 
 ## Docker / Poetry
 You can run the app locally using poetry or from a Docker container, you can find the steps to build, run and test below for each of these options.
 
-## Trello API
-
-This app uses Trello to connect using the Trello API you will need to get  an account [`https://trello.com/`](https://trello.com/) with an API token, API key and Board ID.
-
-Once you have these save a copy of `.env.template` as `.env` in the project root folder with your API token, API key and Board ID. Make sure this file is in the `.gitignore` file so that the details aren't saved to git.
-
 ## Using Poetry to Build/Run/Test
 
 ### Poetry installation (Bash)
@@ -80,6 +74,12 @@ You can run the tests by running:
 ```bash
 $ poetry run pytest
 ```
+
+## Database
+The application requires a MongoDB database to store data. The `.env.template` shows which fields should be declared in your `.env` file to connect to the database.
+
+### Encryption
+The deployed application uses Azure Cosmos DB for Mongo DB and as such the data is automatically encrytped at rest.
 
 ## Using Docker to Build/Run/Test
 
@@ -159,6 +159,15 @@ Open a terminal in the control node and run:
 ```bash
 $ ansible-playbook playbook.yml -i inventory.yml
 ```
-You will need to have the `TRELLO_API_KEY` and `TRELLO_API_TOKEN` available, and input them when prompted.
+You will need to have your database credeenvironment variables ready and input them when prompted
 
 The todoapp should then be running at `{host_ip}:5000`
+
+## Dependency checking
+A dependency checker has been added to the pipeline and will run everytime a branch is pushed to. It will report on vulnerabilities.
+
+You can alsol manually run the checker on the app by running:
+
+```bash
+$ poetry run safety check
+```

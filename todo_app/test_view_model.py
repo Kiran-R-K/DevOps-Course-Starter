@@ -1,18 +1,19 @@
 from todo_app.view_model import ViewModel
-from todo_app.data.trello_items import Item, List
+from todo_app.data.models import Item, List
 
-def get_test_items(list_name):
-  items = [
-    Item(1, "item", list_name),
-    Item(2, "an item", list_name),
-    Item(3, "another item", list_name),
-  ]
-  return items
 
 def get_test_lists(list_name):
+  
+  first_list = List(list_name)
+  first_list.items.append(Item(1, "item", list_name))
+  first_list.items.append(Item(2, "an item", list_name))
+  first_list.items.append(Item(3, "another item", list_name))
+
+  second_list = List("other list")
+  second_list.items.append(Item(4, "other item", "other list"))
+
   lists = [
-    List(1, list_name, get_test_items(list_name)),
-    List(2, "other list", Item(4, "other item", "other list"))
+    first_list, second_list
   ]
   return lists
 
