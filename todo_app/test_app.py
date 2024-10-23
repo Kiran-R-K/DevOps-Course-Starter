@@ -1,6 +1,7 @@
 import os
 import pytest
-import requests
+import mongomock
+import pymongo
 
 from dotenv import load_dotenv, find_dotenv
 from todo_app import app
@@ -9,39 +10,27 @@ from todo_app import app
 def client():
     file_path = find_dotenv('.env.test')
     load_dotenv(file_path, override=True)
+    
+    with mongomock.patch(servers=(('fakemongo.com', 27017),)):
+        test_app = app.create_app()
+        with test_app.test_client() as client:
+            yield client
 
-    test_app = app.create_app()
+def test_index_page(client):
+  mongo_client = pymongo.MongoClient(os.getenv("MONGODB_CONNECTION_STRING"))
+  
+  db = mongo_client[os.getenv("MONGODB_DATABASE_NAME")]
+  
+  collection = db[os.getenv("MONGODB_COLLECTION_NAME")]
 
-    with test_app.test_client() as client:
-        yield client
+  item = {
+     "title": "an item",
+     "status": "To do"
+  }
 
-def test_index_page(monkeypatch, client):
-    monkeypatch.setattr(requests, 'get', stub)
+  collection.insert_one(item)
 
-    response = client.get('/')
-
-    assert response.status_code == 200
-    assert "Test card" in response.data.decode()
-
-def stub(url, params={}):
-    test_board_id = os.environ.get('TRELLO_BOARD_ID')
-    test_api_key = os.environ.get('TRELLO_API_KEY')
-    test_api_token = os.environ.get('TRELLO_API_TOKEN')
-
-    if url == f'https://api.trello.com/1/boards/{test_board_id}/lists?key={test_api_key}&token={test_api_token}&cards=open&card_fields=id,name':
-        fake_response_data = """[{
-            "id": "123abc",
-            "name": "To Do",
-            "cards": [{"id": "456", "name": "Test card"}]
-        }]"""
-        return get_succesful_response(fake_response_data)
-
-    raise Exception(f'Integration test did not expect URL "{url}"')
-
-def get_succesful_response(fake_response_data):
-    response = requests.models.Response()
-    response.status_code = 200
-    response._content = fake_response_data.encode("utf-8")
-    response.encoding = "utf-8"
-    return response
-
+  response = client.get('/')
+  
+  assert response.status_code == 200
+  assert "an item" in response.data.decode()
