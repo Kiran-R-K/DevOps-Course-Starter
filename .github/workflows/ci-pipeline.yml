@@ -25,7 +25,7 @@ jobs:
   container_build_and_push:
     name: Container build and push
     needs: build_and_test
-    if: github.event_name == 'push' && endsWith(github.ref, 'module10')
+    if: github.event_name == 'push' && endsWith(github.ref, 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
