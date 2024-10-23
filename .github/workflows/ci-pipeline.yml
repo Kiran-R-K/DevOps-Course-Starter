@@ -22,6 +22,10 @@ jobs:
       - name: Run tests
         run: docker run todo-app:test
 
+      - name: Run dependency checker
+        run: docker run --entrypoint poetry todo-app:test run safety check
+        continue-on-error: true
+
   container_build_and_push:
     name: Container build and push
     needs: build_and_test
