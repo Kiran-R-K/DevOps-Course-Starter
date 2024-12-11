@@ -4,11 +4,17 @@ from bson.objectid import ObjectId
 import pymongo
 import os
 
+stored_collection = None
 def get_collection():
+  global stored_collection
+  if stored_collection is not None:
+    return stored_collection
   client = pymongo.MongoClient(os.getenv("MONGODB_CONNECTION_STRING"))
   db = client[os.getenv("MONGODB_DATABASE_NAME")]
   collection = db[os.getenv("MONGODB_COLLECTION_NAME")]
+  stored_collection = collection
   return collection
+
 
 
 def get_items():
