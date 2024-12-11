@@ -78,6 +78,9 @@ $ poetry run pytest
 ## Database
 The application requires a MongoDB database to store data. The `.env.template` shows which fields should be declared in your `.env` file to connect to the database.
 
+### Encryption
+The deployed application uses Azure Cosmos DB for Mongo DB and as such the data is automatically encrytped at rest.
+
 ## Using Docker to Build/Run/Test
 
 Make sure you have docker installed
@@ -159,3 +162,12 @@ $ ansible-playbook playbook.yml -i inventory.yml
 You will need to have your database credeenvironment variables ready and input them when prompted
 
 The todoapp should then be running at `{host_ip}:5000`
+
+## Dependency checking
+A dependency checker has been added to the pipeline and will run everytime a branch is pushed to. It will report on vulnerabilities.
+
+You can alsol manually run the checker on the app by running:
+
+```bash
+$ poetry run safety check
+```
