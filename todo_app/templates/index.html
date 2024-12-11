@@ -20,9 +20,9 @@
             <form action="/update" method="put">
               <div class="row-sm">
               <label for="list">Status </label>
-                <select name="list_id">
+                <select name="list_name">
                   {% for list_option in view_model.lists %}
-                    <option {{ "selected" if list_option == list }} value="{{list_option.id}}">{{list_option.name}}</option>
+                    <option {{ "selected" if list_option == list }} value="{{list_option.name}}">{{list_option.name}}</option>
                   {% endfor %}
                 </select>
               </div>
